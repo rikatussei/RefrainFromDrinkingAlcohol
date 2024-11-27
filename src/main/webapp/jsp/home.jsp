@@ -45,8 +45,8 @@
 <body>
     <!-- ユーザー情報とログアウト -->
     <div class="user-info">
-        <h1>${dto.name}さんのホーム画面</h1>
-        <a href="/RefrainFromDrinkingAlcohol/logout">">ログアウト</a>
+        <h1>${dto.name} さんでログイン中</h1>
+        <a href="/RefrainFromDrinkingAlcohol/logout">ログアウト</a>
         <a href="${pageContext.request.contextPath}/user/profile">プロフィール</a>
     </div>
 
