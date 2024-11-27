@@ -11,3 +11,5 @@
     <a href="/RefrainFromDrinkingAlcohol/logout">ログアウト</a>
 </body>
 </html>
+
+kjk
