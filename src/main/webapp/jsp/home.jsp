@@ -1,61 +1,127 @@
-<%-- ホーム画面のJSP --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>ホーム画面</title>
+<meta charset="UTF-8">
+<title>ホーム画面</title>
+
+<!-- FullCalendarライブラリの読み込み -->
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+
+<!-- カスタムスタイル -->
+<style>
+/* コンテナのスタイル */
+.container {
+	width: 90%;
+	margin: 20px auto;
+	max-width: 1200px;
+}
+
+/* カレンダーのスタイル */
+#calendar {
+	margin-top: 20px;
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ヘッダー部分のスタイル */
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+/* ナビゲーションのスタイル */
+.nav-links {
+	margin-top: 20px;
+	text-align: right;
+}
+
+.nav-links a {
+	margin-left: 10px;
+	text-decoration: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+}
+</style>
 </head>
 <body>
-    <%-- ログインユーザー情報表示部分 --%>
-    <div class="user-info">
-    <h1>ホーム画面</h1>
-    <%-- DTOからユーザー名を取得して表示 --%>
-       <p>${dto.name} さんでログイン中</p>
-    </div>
-	<%-- ナビゲーションリンク --%>
-	<div class="navigation">
-        <a href="/RefrainFromDrinkingAlcohol/logout">ログアウト</a>
-        <a href="${pageContext.request.contextPath}/profile">プロフィール</a>
-    </div>
-    
-    
-    <%-- カレンダー表示エリア --%>
-    <div class="calendar-area">
-        <h2>${year}年${month}月</h2>
-        <table border="1">
-            <tr>
-                <th>日</th>
-                <th>月</th>
-                <th>火</th>
-                <th>水</th>
-                <th>木</th>
-                <th>金</th>
-                <th>土</th>
-            </tr>
-            <%-- カレンダーデータをループで表示 --%>
-            <c:forEach items="${calendarData}" var="week">
-                <tr>
-                    <c:forEach items="${week}" var="day">
-                        <td class="${day.today ? 'today' : ''}">
-                            ${day.dayOfMonth}
-                            <%-- その日のモンスターが存在する場合 --%>
-                            <c:if test="${day.hasMonster}">
-                                <div class="monster-info">
-                                    <c:if test="${day.today}">
-                                        <%-- 当日の場合は戦闘画面へのリンクを表示 --%>
-                                        <a href="${pageContext.request.contextPath}/battle">
-                                            👾
-                                        </a>
-                                    </c:if>
-                                </div>
-                            </c:if>
-                        </td>
-                    </c:forEach>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
+	<div class="container">
+		<!-- ヘッダー部分 -->
+		<div class="header">
+			<h1>ホーム画面</h1>
+			<div class="user-info">
+				<span>${dto.name}さん</span>
+			</div>
+		</div>
+
+		<!-- カレンダー本体 -->
+		<div id="calendar"></div>
+
+		<!-- ナビゲーションリンク -->
+		<div class="nav-links">
+			<a href="${pageContext.request.contextPath}/user/profile">プロフィール</a>
+			<a href="${pageContext.request.contextPath}/logout">ログアウト</a>
+		</div>
+	</div>
+
+	<!-- カレンダーの初期化スクリプト -->
+	<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',  // 月表示
+                locale: 'ja',                 // 日本語化
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: ''
+                },
+                
+                // 日付クリックイベント
+                dateClick: function(info) {
+                    // 今日の日付を取得
+                    var today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    // クリックされた日付
+                    var clickedDate = info.date;
+                    clickedDate.setHours(0, 0, 0, 0);
+                    
+                    // 今日の日付のみクリック可能
+                    if (clickedDate.getTime() === today.getTime()) {
+                        window.location.href = '${pageContext.request.contextPath}/battle';
+                    }
+                },
+                
+                // イベント（モンスター）の表示
+                events: function(info, successCallback, failureCallback) {
+                    // サーバーからモンスターデータを取得
+                    fetch('${pageContext.request.contextPath}/api/monsters')
+                        .then(response => response.json())
+                        .then(data => {
+                            successCallback(data.map(monster => ({
+                                title: monster.name,
+                                start: monster.date,
+                                allDay: true,
+                                color: monster.defeated ? 'gray' : 'red'
+                            })));
+                        })
+                        .catch(error => {
+                            console.error('Error fetching monster data:', error);
+                            failureCallback(error);
+                        });
+                }
+            });
+            
+            calendar.render();
+        });
+    </script>
 </body>
 </html>
