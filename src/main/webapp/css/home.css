@@ -1,1 +1,40 @@
 @charset "UTF-8";
+/* カレンダー関連 */
+#calendar {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* モンスター情報 */
+.monster-info {
+    background: white;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.monster-image {
+    max-width: 150px;
+    height: auto;
+    margin: 10px 0;
+}
+
+/* 戦闘ボタン */
+.battle-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4444;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.battle-button:hover {
+    background-color: #ff0000;
+}

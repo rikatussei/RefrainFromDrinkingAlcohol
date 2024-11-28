@@ -1,1 +1,45 @@
 @charset "UTF-8";
+/* 共通のコンテナスタイル */
+.container {
+    width: 90%;
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* 共通のヘッダースタイル */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* 共通のナビゲーションスタイル */
+.nav-links {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.nav-links a {
+    margin-left: 10px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #4CAF50;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #45a049;
+}
+
+/* 共通のカードスタイル */
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}

@@ -13,42 +13,6 @@
 
 <!-- カスタムスタイル -->
 <style>
-/* コンテナのスタイル */
-.container {
-	width: 90%;
-	margin: 20px auto;
-	max-width: 1200px;
-}
-
-/* カレンダーのスタイル */
-#calendar {
-	margin-top: 20px;
-	background-color: white;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* ヘッダー部分のスタイル */
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
-}
-
-/* ナビゲーションのスタイル */
-.nav-links {
-	margin-top: 20px;
-	text-align: right;
-}
-
-.nav-links a {
-	margin-left: 10px;
-	text-decoration: none;
-	padding: 5px 10px;
-	border-radius: 4px;
-}
 </style>
 </head>
 <body>

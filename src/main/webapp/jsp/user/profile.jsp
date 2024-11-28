@@ -11,54 +11,6 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     
     <style>
-        /* コンテナスタイル */
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* プロフィール情報エリア */
-        .profile-info {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        
-        /* カレンダーエリア */
-        #calendar {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-top: 20px;
-        }
-        
-        /* トークン表示用スタイル */
-        .battle-token {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background: gold;
-            border-radius: 50%;
-            margin: 2px;
-        }
-        
-        /* ナビゲーションリンク */
-        .nav-links {
-            margin: 20px 0;
-        }
-        
-        .nav-links a {
-            margin-right: 10px;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            background: #4CAF50;
-            color: white;
-        }
     </style>
 </head>
 <body>
