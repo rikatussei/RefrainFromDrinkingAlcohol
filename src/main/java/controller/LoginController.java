@@ -40,7 +40,7 @@ public class LoginController extends HttpServlet {
 
 		// Validationインスタンス生成
 		Validation validation = new Validation();
-		//未入力でないかを確認
+		//未入力でないかを確認s
 		validation.isNull("ユーザー名", name);
 
 		validation.isNull("パスワード", passwordStr);
