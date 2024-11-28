@@ -1,1 +1,47 @@
 @charset "UTF-8";
+/* 共通レイアウト */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ヘッダー部分 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+/* ナビゲーションリンク */
+.nav-links {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.nav-links a {
+    display: inline-block;
+    padding: 8px 15px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #45a049;
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: red;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid red;
+    border-radius: 4px;
+}
