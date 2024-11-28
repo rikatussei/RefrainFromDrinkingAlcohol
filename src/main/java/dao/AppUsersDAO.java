@@ -130,4 +130,38 @@ public class AppUsersDAO {
 		}
 
 	}
+
+	/**
+	 * ユーザー情報を更新するメソッド
+	 * @param user 更新するユーザー情報
+	 * @return 更新成功時は1、失敗時は0
+	 */
+	public int updateUser(AppUsersDTO user) {
+		String sql = "UPDATE appusers SET name = ? ";
+
+		// パスワードが設定されている場合は更新に含める
+		if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
+			sql += ", password = ? ";
+		}
+		sql += "WHERE id = ? AND deleted_at IS NULL";
+
+		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			int paramIndex = 1;
+			ps.setString(paramIndex++, user.getName());
+
+			if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
+				ps.setString(paramIndex++, user.getPassword());
+			}
+
+			ps.setInt(paramIndex, user.getId());
+
+			return ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("データベースエラーが発生しました", e);
+		}
+	}
 }
