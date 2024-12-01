@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.AppUsersDAO;
 import dto.AppUsersDTO;
+import util.BreadcrumbItem;
 
 //他のファイルからアクセスするときの名称
 @WebServlet("/register")
@@ -22,6 +25,13 @@ public class RegisterController extends HttpServlet {
 	//コントローラー実行時に動くdoGetメソッド
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// パンくずリストの設定
+		List<BreadcrumbItem> breadcrumbs = new ArrayList<>();
+		breadcrumbs.add(new BreadcrumbItem("ホーム", "/RefrainFromDrinkingAlcohol/"));
+		breadcrumbs.add(new BreadcrumbItem("新規登録", null));
+		request.setAttribute("breadcrumbItems", breadcrumbs);
+
 		// register.jspにフォワード
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/register.jsp");
 		rd.forward(request, response);
