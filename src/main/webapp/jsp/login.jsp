@@ -12,6 +12,7 @@
 	margin: 10px 0;
 }
 </style>
+<script src="/RefrainFromDrinkingAlcohol/js/dialog.js"></script>
 </head>
 <body>
 	<h1>ログイン画面</h1>
