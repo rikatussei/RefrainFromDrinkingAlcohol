@@ -5,27 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>プロフィール編集</title>
-    <style>
-        /* スタイルの定義 */
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        .edit-form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-    </style>
+    <!-- カスタムCSS -->
+    <link href="/RefrainFromDrinkingAlcohol/css/common.css" rel="stylesheet">
+    <link href="/RefrainFromDrinkingAlcohol/css/profile.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">

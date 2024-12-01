@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* 基本レイアウト */
+/* 共通レイアウト */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -7,13 +7,30 @@
     padding: 20px;
 }
 
-/* 共通カードスタイル */
-.card-style {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* ヘッダー共通スタイル */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+}
+
+/* フォーム共通スタイル */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 /* ナビゲーションリンク共通 */
@@ -35,20 +52,12 @@
     background-color: #45a049;
 }
 
-/* フォーム共通スタイル */
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
+/* エラーメッセージ共通 */
+.error-message {
+    color: #ff0000;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ff0000;
     border-radius: 4px;
+    background-color: #fff5f5;
 }

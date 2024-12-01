@@ -1,38 +1,16 @@
 @charset "UTF-8";
-/* カレンダー固有のスタイル */
+/* カレンダーエリア */
 #calendar {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-top: 20px;
 }
 
-/* モンスター表示エリア固有のスタイル */
-.monster-area {
-    text-align: center;
-}
-
-.monster-image {
-    max-width: 150px;
-    height: auto;
-    margin: 10px 0;
-}
-
-/* 戦闘ボタン固有のスタイル */
-.battle-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff4444;
-    color: white;
-    text-decoration: none;
+/* ユーザー情報 */
+.user-info {
+    padding: 10px;
+    background: #f8f9fa;
     border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.battle-button:hover {
-    background-color: #ff0000;
-}
-
-/* カレンダーイベント固有のスタイル */
-.calendar-event {
-    padding: 2px 5px;
-    font-size: 0.9em;
-    border-radius: 3px;
 }

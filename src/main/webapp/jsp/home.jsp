@@ -6,15 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>ホーム画面</title>
-
-<!-- FullCalendarライブラリの読み込み -->
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
-
-<!-- カスタムスタイル -->
-<style>
-</style>
-<script src="/RefrainFromDrinkingAlcohol/js/dialog.js"></script>
+    <!-- FullCalendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css' rel='stylesheet' />
+    <!-- カスタムCSS -->
+    <link href="/RefrainFromDrinkingAlcohol/css/common.css" rel="stylesheet">
+    <link href="/RefrainFromDrinkingAlcohol/css/home.css" rel="stylesheet">
+    <script src="/RefrainFromDrinkingAlcohol/js/dialog.js"></script>
 </head>
 <body>
 	<div class="container">
