@@ -6,7 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>プロフィール - 飲酒を控え隊</title>
-    
+        <!-- CSS読み込み -->
+    <link rel="stylesheet" href="/RefrainFromDrinkingAlcohol/css/common.css">
+    <link rel="stylesheet" href="/RefrainFromDrinkingAlcohol/css/profile.css">
     <!-- FullCalendarのCDN -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     
