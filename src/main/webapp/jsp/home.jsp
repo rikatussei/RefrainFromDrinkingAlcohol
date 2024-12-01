@@ -14,6 +14,7 @@
 <!-- カスタムスタイル -->
 <style>
 </style>
+<script src="/RefrainFromDrinkingAlcohol/js/dialog.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -30,8 +31,9 @@
 
 		<!-- ナビゲーションリンク -->
 		<div class="nav-links">
-			<a href="/RefrainFromDrinkingAlcohol/user/profile">プロフィール</a>
-			<a href="${pageContext.request.contextPath}/logout">ログアウト</a>
+			<a href="/RefrainFromDrinkingAlcohol/user/profile">プロフィール</a> <a
+				href="${pageContext.request.contextPath}/logout">ログアウト</a> <a
+				href="#" onclick="return confirmLogout();">ログアウト２</a>
 		</div>
 	</div>
 
