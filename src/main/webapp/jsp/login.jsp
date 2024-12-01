@@ -29,7 +29,8 @@
 	</c:if>
 
 	<!-- ログインフォーム -->
-	<form action="${pageContext.request.contextPath}/login" method="post">
+	<form action="/RefrainFromDrinkingAlcohol/login" method="post"
+		onsubmit="return confirmLogin();">
 		<table>
 			<tr>
 				<th>ログインID</th>
