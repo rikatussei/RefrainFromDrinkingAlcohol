@@ -1,33 +1,33 @@
 @charset "UTF-8";
-/* 共通のコンテナスタイル */
+/* 基本レイアウト */
 .container {
     width: 90%;
-    margin: 20px auto;
     max-width: 1200px;
+    margin: 20px auto;
     padding: 20px;
 }
 
-/* 共通のヘッダースタイル */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* 共通カードスタイル */
+.card-style {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
-/* 共通のナビゲーションスタイル */
+/* ナビゲーションリンク共通 */
 .nav-links {
-    margin-top: 20px;
-    text-align: right;
+    margin: 20px 0;
 }
 
 .nav-links a {
-    margin-left: 10px;
+    margin-right: 10px;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 8px 15px;
     border-radius: 4px;
-    color: #fff;
-    background-color: #4CAF50;
+    background: #4CAF50;
+    color: white;
     transition: background-color 0.3s;
 }
 
@@ -35,11 +35,20 @@
     background-color: #45a049;
 }
 
-/* 共通のカードスタイル */
-.card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+/* フォーム共通スタイル */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
