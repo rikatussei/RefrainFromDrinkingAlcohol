@@ -5,10 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>会員登録画面</title>
+<script src="/RefrainFromDrinkingAlcohol/js/dialog.js"></script>
 </head>
 <body>
 	<h1>会員登録画面</h1>
-	<form action="/RefrainFromDrinkingAlcohol/register" method="post">
+	<form action="/RefrainFromDrinkingAlcohol/register" method="post"
+		onsubmit="return confirmRegistration();">
 		<table>
 			<tr>
 				<th>ログインID</th>
