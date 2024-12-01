@@ -6,48 +6,48 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン画面</title>
-<style>
-.error-message {
-	color: red;
-	margin: 10px 0;
-}
-</style>
+<link href="/RefrainFromDrinkingAlcohol/css/common.css" rel="stylesheet">
+<link href="/RefrainFromDrinkingAlcohol/css/auth.css" rel="stylesheet">
 <script src="/RefrainFromDrinkingAlcohol/js/dialog.js"></script>
 </head>
 <body>
-	<h1>ログイン画面</h1>
+	<div class="auth-container">
+		<div class="auth-form">
+			<h1>ログイン画面</h1>
 
-	<%-- エラーメッセージの表示（簡略化） --%>
-	<c:if test="${not empty errorMsg}">
-		<div class="error-message">
-			<ul>
-				<c:forEach var="msg" items="${errorMsg}">
-					<li>${msg}</li>
-				</c:forEach>
-			</ul>
+			<%-- エラーメッセージ表示 --%>
+			<c:if test="${not empty errorMsg}">
+				<div class="error-message">
+					<ul>
+						<c:forEach var="msg" items="${errorMsg}">
+							<li>${msg}</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</c:if>
+
+			<form action="/RefrainFromDrinkingAlcohol/login" method="post"
+				onsubmit="return confirmLogin();">
+				<table>
+					<tr>
+						<th>ログインID</th>
+						<td><input type="text" name="loginId" value="${loginId}"></td>
+					</tr>
+					<tr>
+						<th>名前</th>
+						<td><input type="text" name="name" value="${name}"></td>
+					</tr>
+					<tr>
+						<th>パスワード</th>
+						<td><input type="password" name="password"></td>
+					</tr>
+				</table>
+				<input type="submit" value="ログイン" class="auth-button">
+			</form>
+
+			<a href="/RefrainFromDrinkingAlcohol/register" class="auth-link">
+				新規登録はこちら </a>
 		</div>
-	</c:if>
-
-	<!-- ログインフォーム -->
-	<form action="/RefrainFromDrinkingAlcohol/login" method="post"
-		onsubmit="return confirmLogin();">
-		<table>
-			<tr>
-				<th>ログインID</th>
-				<td><input type="text" name="loginId" value="${loginId}"></td>
-			</tr>
-			<tr>
-				<th>名前</th>
-				<td><input type="text" name="name" value="${name}"></td>
-			</tr>
-			<tr>
-				<th>パスワード</th>
-				<td><input type="password" name="password"></td>
-			</tr>
-		</table>
-		<input type="submit" value="ログイン">
-	</form>
-
-	<a href="${pageContext.request.contextPath}/register">新規登録はこちら</a>
+	</div>
 </body>
 </html>
