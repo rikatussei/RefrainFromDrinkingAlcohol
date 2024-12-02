@@ -26,7 +26,7 @@
 				</div>
 			</c:if>
 
-			<form action="login" method="post"
+			<form action="/RefrainFromDrinkingAlcohol/login" method="post"
 				onsubmit="return confirmLogin();">
 				<table>
 					<tr>
