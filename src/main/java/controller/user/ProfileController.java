@@ -1,9 +1,6 @@
 package controller.user;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-
 import dto.AppUsersDTO;
 
 /**
@@ -22,64 +17,56 @@ import dto.AppUsersDTO;
  */
 @WebServlet("/user/profile")
 public class ProfileController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * プロフィール画面表示用のGET処理
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        // セッションチェック
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("loginUser") == null) {
-            response.sendRedirect("/RefrainFromDrinkingAlcohol/login");
-            return;
-        }
+	/**
+	 * プロフィール画面表示用のGET処理
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        try {
-            // セッションからユーザー情報を取得
-            AppUsersDTO loginUser = (AppUsersDTO) session.getAttribute("loginUser");
-            
-            // リクエスト属性にユーザー情報を設定
-            request.setAttribute("user", loginUser);
+		// セッションチェック
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("loginUser") == null) {
+			response.sendRedirect("/RefrainFromDrinkingAlcohol/login");
+			return;
+		}
 
-            // 戦闘結果データの取得
-            List<Map<String, Object>> battleResults = getBattleResults(loginUser.getId());
-            Gson gson = new Gson();
-            request.setAttribute("battleResults", gson.toJson(battleResults));
+		try {
+			// セッションからユーザー情報を取得
+			AppUsersDTO loginUser = (AppUsersDTO) session.getAttribute("loginUser");
 
-            // 総トークン数の取得
-            int totalTokens = getTotalTokens(loginUser.getId());
-            request.setAttribute("totalTokens", totalTokens);
+			// リクエスト属性にユーザー情報を設定
+			request.setAttribute("user", loginUser);
 
-            // プロフィール画面にフォワード
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/user/profile.jsp");
-            dispatcher.forward(request, response);
+			/* 戦闘結果データの取得は後で実装
+			List<Map<String, Object>> battleResults = getBattleResults(loginUser.getId());
+			request.setAttribute("battleResults", battleResults);
+			*/
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("/RefrainFromDrinkingAlcohol/error");
-        }
-    }
+			/* トークン数の取得は後で実装
+			int totalTokens = getTotalTokens(loginUser.getId());
+			request.setAttribute("totalTokens", totalTokens);
+			*/
 
-    /**
-     * ユーザーの戦闘結果データを取得するメソッド
-     * @param userId ユーザーID
-     * @return 戦闘結果データのリスト
-     */
-    private List<Map<String, Object>> getBattleResults(int userId) {
-        // TODO: 戦闘結果データ取得ロジックを実装
-        return new ArrayList<>();
-    }
+			// プロフィール画面にフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/user/profile.jsp");
+			dispatcher.forward(request, response);
 
-    /**
-     * ユーザーの総トークン数を取得するメソッド
-     * @param userId ユーザーID
-     * @return トークンの総数
-     */
-    private int getTotalTokens(int userId) {
-        // TODO: トークン集計ロジックを実装
-        return 0;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("/RefrainFromDrinkingAlcohol/error");
+		}
+	}
+
+	/*
+	 * 以下のメソッドは後で実装
+	private List<Map<String, Object>> getBattleResults(int userId) {
+	    return new ArrayList<>();
+	}
+	
+	private int getTotalTokens(int userId) {
+	    return 0;
+	}
+	*/
 }
