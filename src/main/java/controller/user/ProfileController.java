@@ -17,7 +17,7 @@ import dto.AppUsersDTO;
  * プロフィール編集画面の制御を行うサーブレット
  */
 @WebServlet("/user/profile/edit")
-public class ProfileEditController extends HttpServlet {
+public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -39,6 +39,16 @@ public class ProfileEditController extends HttpServlet {
 
 			// リクエスト属性にユーザー情報を設定
 			request.setAttribute("user", loginUser);
+
+			/* 後で実装予定：戦闘履歴の取得
+			List<BattleHistoryDTO> battleHistory = getBattleHistory(loginUser.getId());
+			request.setAttribute("battleHistory", battleHistory);
+			*/
+
+			/* 後で実装予定：獲得トークンの取得
+			List<TokenDTO> userTokens = getUserTokens(loginUser.getId());
+			request.setAttribute("userTokens", userTokens);
+			*/
 
 			// 編集画面にフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/user/profile_edit.jsp");
@@ -82,6 +92,10 @@ public class ProfileEditController extends HttpServlet {
 			// パスワードが入力されている場合のみ設定
 			if (password != null && !password.trim().isEmpty()) {
 				updateUser.setPassword(password);
+				/* 後で実装予定：パスワードのハッシュ化
+				String hashedPassword = PasswordUtil.hashPassword(password);
+				updateUser.setPassword(hashedPassword);
+				*/
 			}
 
 			// DB更新処理
@@ -93,6 +107,10 @@ public class ProfileEditController extends HttpServlet {
 				// セッションのユーザー情報も更新
 				loginUser.setName(name);
 				session.setAttribute("loginUser", loginUser);
+
+				/* 後で実装予定：更新履歴の記録
+				logUserUpdate(loginUser.getId(), "profile_update");
+				*/
 
 				// プロフィール画面にリダイレクト
 				response.sendRedirect("/RefrainFromDrinkingAlcohol/user/profile");
@@ -108,4 +126,22 @@ public class ProfileEditController extends HttpServlet {
 			response.sendRedirect("/RefrainFromDrinkingAlcohol/error");
 		}
 	}
+
+	/* 後で実装予定：戦闘履歴取得メソッド
+	private List<BattleHistoryDTO> getBattleHistory(int userId) {
+	    return new ArrayList<>();
+	}
+	*/
+
+	/* 後で実装予定：トークン取得メソッド
+	private List<TokenDTO> getUserTokens(int userId) {
+	    return new ArrayList<>();
+	}
+	*/
+
+	/* 後で実装予定：ユーザー更新ログ記録メソッド
+	private void logUserUpdate(int userId, String actionType) {
+	    // 更新履歴を記録する処理
+	}
+	*/
 }
