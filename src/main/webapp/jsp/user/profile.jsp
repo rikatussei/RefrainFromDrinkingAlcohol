@@ -26,8 +26,8 @@
 			<p>総獲得トークン数: ${totalTokens}</p>
 
 			<div class="nav-links">
-				<a href="/RefrainFromDrinkingAlcohol/user/profile_edit">プロフィール編集</a>
-				<a href="/RefrainFromDrinkingAlcohol/home">ホームに戻る</a>
+				<a href="/RefrainFromDrinkingAlcohol/jsp/user/profile_edit.jsp">プロフィール編集</a>
+				<a href="/RefrainFromDrinkingAlcohol/jsp/home.jsp">ホームに戻る</a>
 			</div>
 		</div>
 

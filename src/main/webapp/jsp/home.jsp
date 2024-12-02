@@ -32,8 +32,8 @@
 
 		<!-- ナビゲーションリンク -->
 		<div class="nav-links">
-			<a href="/RefrainFromDrinkingAlcohol/user/profile">プロフィール</a> <a
-				href="${pageContext.request.contextPath}/logout">ログアウト</a>
+			<a href="/RefrainFromDrinkingAlcohol/user/profile">プロフィール</a>
+			<a href="${pageContext.request.contextPath}/logout">ログアウト</a>
 		</div>
 	</div>
 

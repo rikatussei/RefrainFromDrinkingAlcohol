@@ -16,7 +16,7 @@ import dto.AppUsersDTO;
 /**
  * プロフィール編集画面の制御を行うサーブレット
  */
-@WebServlet("/user/profile/edit")
+@WebServlet("/user/profile")
 public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,12 +44,12 @@ public class ProfileController extends HttpServlet {
 			List<BattleHistoryDTO> battleHistory = getBattleHistory(loginUser.getId());
 			request.setAttribute("battleHistory", battleHistory);
 			*/
+			System.out.println("A");
 
 			/* 後で実装予定：獲得トークンの取得
 			List<TokenDTO> userTokens = getUserTokens(loginUser.getId());
 			request.setAttribute("userTokens", userTokens);
 			*/
-
 			// 編集画面にフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/user/profile_edit.jsp");
 			dispatcher.forward(request, response);
