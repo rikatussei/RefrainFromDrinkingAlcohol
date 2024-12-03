@@ -27,15 +27,17 @@ public class ProfileController extends HttpServlet {
 			throws ServletException, IOException {
 
 		// セッションチェック
-		HttpSession session = request.getSession(false);
-		if (session == null || session.getAttribute("loginUser") == null) {
-			response.sendRedirect("/RefrainFromDrinkingAlcohol/login");
-			return;
-		}
+		HttpSession session = request.getSession();
+//		System.out.println("aaa"+session);
+//		System.out.println(session.getAttribute("dto"));
+//		if (session == null || session.getAttribute("dto") == null) {
+//			response.sendRedirect("/RefrainFromDrinkingAlcohol/login");
+//			return;
+//		}
 
 		try {
 			// セッションからユーザー情報を取得
-			AppUsersDTO loginUser = (AppUsersDTO) session.getAttribute("loginUser");
+			AppUsersDTO loginUser = (AppUsersDTO) session.getAttribute("dto");
 
 			// リクエスト属性にユーザー情報を設定
 			request.setAttribute("user", loginUser);
