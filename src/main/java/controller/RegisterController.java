@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import dao.AppUsersDAO;
 import dto.AppUsersDTO;
+import dto.MonstersDTO;
+import service.MonsterService;
 import util.BreadcrumbItem;
 
 //他のファイルからアクセスするときの名称
@@ -72,6 +74,16 @@ public class RegisterController extends HttpServlet {
 				request.setAttribute("dto", dto);
 
 				//registerDone.jspにフォワード
+				// モンスター生成処理
+				try {
+					MonsterService monsterService = new MonsterService();
+					MonstersDTO monster = monsterService.generateMonster();
+					request.setAttribute("monster", monster); // モンスター情報をリクエストスコープに保存
+				} catch (Exception e) {
+					e.printStackTrace();
+					request.setAttribute("errorMsg", "モンスター生成中にエラーが発生しました。");
+				}
+
 				RequestDispatcher rd = request.getRequestDispatcher("/jsp/registerDone.jsp");
 				rd.forward(request, response);
 			}
