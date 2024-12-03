@@ -28,12 +28,10 @@ public class ProfileController extends HttpServlet {
 
 		// セッションチェック
 		HttpSession session = request.getSession();
-//		System.out.println("aaa"+session);
-//		System.out.println(session.getAttribute("dto"));
-//		if (session == null || session.getAttribute("dto") == null) {
-//			response.sendRedirect("/RefrainFromDrinkingAlcohol/login");
-//			return;
-//		}
+		if (session == null || session.getAttribute("dto") == null) {
+			response.sendRedirect("/RefrainFromDrinkingAlcohol/login");
+			return;
+		}
 
 		try {
 			// セッションからユーザー情報を取得
