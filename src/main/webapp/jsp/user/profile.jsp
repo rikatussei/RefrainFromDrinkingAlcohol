@@ -48,6 +48,17 @@
 			<h2>戦闘履歴</h2>
 			<div id="calendar"></div>
 		</div>
+
+		<!-- エラーメッセージ表示 -->
+		<c:if test="${not empty errorMsg}">
+			<div class="error-message">
+				<ul>
+					<c:forEach var="msg" items="${errorMsg}">
+						<li>${msg}</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:if>
 	</div>
 
 	<script>
