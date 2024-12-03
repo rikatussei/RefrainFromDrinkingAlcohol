@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import dao.AppUsersDAO;
 import dto.AppUsersDTO;
+import dto.MonstersDTO;
+import service.MonsterService;
 import util.BreadcrumbItem;
 import validation.Validation;
 
@@ -77,6 +79,17 @@ public class LoginController extends HttpServlet {
 		if (login != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("dto", login);
+
+			// モンスター生成処理の呼び出し
+			try {
+				MonsterService monsterService = new MonsterService();
+				MonstersDTO monster = monsterService.generateMonster();
+				session.setAttribute("monster", monster); // セッションにモンスターを保存
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "モンスター生成中にエラーが発生しました。");
+			}
+
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/home.jsp");
 			rd.forward(request, response);
 		} else {
