@@ -2,34 +2,32 @@ package scheduler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.sql.PreparedStatement;
 
+import dto.MonstersDTO;
 import service.MonsterService;
 
 public class MonsterBatchJob {
-    public static void main(String[] args) {
-        Timer timer = new Timer(true); // バックグラウンドで動作
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                try (Connection connection = getConnection()) {
-                    MonsterService monsterService = new MonsterService();
-                    monsterService.generateAndSaveMonster(connection);
-                    System.out.println("モンスターが生成されました。");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, 0, 24 * 60 * 60 * 1000); // 毎日実行（24時間間隔）
-    }
+	public static void main(String[] args) {
+		try {
+			MonsterService monsterService = new MonsterService();
+			MonstersDTO monster = monsterService.generateMonster();
 
-    // データベース接続を取得
-    private static Connection getConnection() throws Exception {
-        return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/your_database", // DB接続情報を設定
-                "your_username", // ユーザー名
-                "your_password"  // パスワード
-        );
-    }
+			// データベースに接続
+			try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433/0816jdbc", "postgres",
+					"password")) {
+				String sql = "INSERT INTO monsters (name, hp, spawn_date, image_path, defeated) VALUES (?, ?, CURRENT_DATE, ?, false)";
+				try (PreparedStatement ps = conn.prepareStatement(sql)) {
+					ps.setString(1, monster.getName());
+					ps.setInt(2, monster.getHp());
+					ps.setBytes(3, monster.getImageData());
+					ps.executeUpdate();
+				}
+			}
+
+			System.out.println("モンスターが生成されました！");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

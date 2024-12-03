@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import dto.MonstersDTO;
 import util.OpenAIClient;
 
 public class MonsterService {
@@ -28,5 +29,10 @@ public class MonsterService {
             ps.executeUpdate();
         }
     }
+
+	public MonstersDTO generateMonster() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
 }
 

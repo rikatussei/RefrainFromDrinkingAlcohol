@@ -169,6 +169,16 @@ public class MonstersDTO implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
+	private byte[] imageData; // モンスター画像のデータ
+
+	public byte[] getImageData() {
+		return imageData;
+	}
+
+	public void setImageData(byte[] imageData) {
+		this.imageData = imageData;
+	}
+
 	// オブジェクトの状態を文字列として返すためのメソッド（デバッグやログ出力に便利）
 	@Override
 	public String toString() {
