@@ -51,7 +51,7 @@ public class ProfileController extends HttpServlet {
 			request.setAttribute("userTokens", userTokens);
 			*/
 			// 編集画面にフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/user/profile_edit.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/user/profile.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
