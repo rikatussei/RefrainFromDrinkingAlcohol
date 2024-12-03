@@ -35,6 +35,22 @@
 			<a href="/RefrainFromDrinkingAlcohol/user/profile">プロフィール</a> <a
 				href="${pageContext.request.contextPath}/logout">ログアウト</a>
 		</div>
+		<!-- モンスター情報の表示 -->
+		<div class="monster-info">
+			<h2>今日のモンスター</h2>
+			<c:if test="${not empty monster}">
+				<div>
+					<img src="data:image/png;base64,${monster.imageBase64}"
+						alt="${monster.name}" />
+					<p>名前: ${monster.name}</p>
+					<p>HP: ${monster.hp}</p>
+					<p>生成日: ${monster.spawn_date}</p>
+				</div>
+			</c:if>
+			<c:if test="${empty monster}">
+				<p>本日のモンスターはまだ生成されていません。</p>
+			</c:if>
+		</div>
 	</div>
 
 	<!-- カレンダーの初期化スクリプト -->
