@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>プロフィール - 飲酒を控え隊</title>
-<!-- FullCalendar CSS -->
+<!-- FullCalendar -->
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
 <link
 	href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css'
 	rel='stylesheet' />
@@ -17,21 +19,33 @@
 </head>
 <body>
 	<div class="container">
+		<!-- ヘッダー部分 -->
+		<div class="header">
+			<h1>プロフィール画面</h1>
+			<div class="user-info">
+				<span>${user.name}さん</span>
+			</div>
+		</div>
+
 		<!-- プロフィール情報 -->
-		<div class="profile-info">
-			<h1>${user.name}さんのプロフィール</h1>
+		<div class="profile-info card">
+			<h2>${user.name}さんのプロフィール</h2>
 			<p>ログインID: ${user.loginId}</p>
 			<p>登録日: ${user.createdAt}</p>
 			<p>総獲得トークン数: ${totalTokens}</p>
 
 			<div class="nav-links">
-				<a href="/RefrainFromDrinkingAlcohol/jsp/user/profile_edit.jsp">プロフィール編集</a>
-				<a href="/RefrainFromDrinkingAlcohol/jsp/home.jsp">ホームに戻る</a>
+				<a href="/RefrainFromDrinkingAlcohol/user/profile/edit"
+					class="btn-primary">プロフィール編集</a> <a
+					href="/RefrainFromDrinkingAlcohol/user/home" class="btn-secondary">ホームに戻る</a>
 			</div>
 		</div>
 
 		<!-- カレンダー表示エリア -->
-		<div id="calendar"></div>
+		<div class="calendar-container card">
+			<h2>戦闘履歴</h2>
+			<div id="calendar"></div>
+		</div>
 	</div>
 
 	<script>
@@ -46,20 +60,25 @@
                     right: ''
                 },
                 
-                // イベントデータの設定
-                events: ${battleResults}, // サーバーから取得した戦闘結果データ
-                
                 // イベント表示のカスタマイズ
-                eventContent: function(arg) {
-                    // 勝利した場合はトークンアイコンを表示
-                    if (arg.event.extendedProps.hasToken) {
-                        return {
-                            html: '<div class="battle-token" title="勝利トークン"></div>'
-                        };
-                    }
+                events: function(info, successCallback, failureCallback) {
+                    // 戦闘記録データを取得
+                    fetch('${pageContext.request.contextPath}/api/battle-history')
+                        .then(response => response.json())
+                        .then(data => {
+                            successCallback(data.map(battle => ({
+                                title: battle.hasToken ? '🏆' : '⚔️',
+                                start: battle.date,
+                                allDay: true,
+                                className: battle.hasToken ? 'victory-event' : 'battle-event'
+                            })));
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            failureCallback(error);
+                        });
                 }
             });
-            
             calendar.render();
         });
     </script>

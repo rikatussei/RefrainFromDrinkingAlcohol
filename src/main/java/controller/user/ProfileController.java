@@ -44,7 +44,6 @@ public class ProfileController extends HttpServlet {
 			List<BattleHistoryDTO> battleHistory = getBattleHistory(loginUser.getId());
 			request.setAttribute("battleHistory", battleHistory);
 			*/
-			System.out.println("A");
 
 			/* 後で実装予定：獲得トークンの取得
 			List<TokenDTO> userTokens = getUserTokens(loginUser.getId());
