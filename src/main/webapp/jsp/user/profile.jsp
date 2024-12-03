@@ -23,21 +23,23 @@
 		<div class="header">
 			<h1>プロフィール画面</h1>
 			<div class="user-info">
-				<span>${user.name}さん</span>
+				<h2>
+					<span>${user.name}さんのプロフィール</span>
+				</h2>
 			</div>
 		</div>
 
 		<!-- プロフィール情報 -->
 		<div class="profile-info card">
-			<h2>${user.name}さんのプロフィール</h2>
 			<p>ログインID: ${user.loginId}</p>
 			<p>登録日: ${user.createdAt}</p>
 			<p>総獲得トークン数: ${totalTokens}</p>
 
 			<div class="nav-links">
-				<a href="/RefrainFromDrinkingAlcohol/user/profile/edit"
+				<a href="/RefrainFromDrinkingAlcohol/jsp/user/profile_edit.jsp"
 					class="btn-primary">プロフィール編集</a> <a
-					href="/RefrainFromDrinkingAlcohol/user/home" class="btn-secondary">ホームに戻る</a>
+					href="/RefrainFromDrinkingAlcohol/jsp/home.jsp"
+					class="btn-secondary">ホームに戻る</a>
 			</div>
 		</div>
 
