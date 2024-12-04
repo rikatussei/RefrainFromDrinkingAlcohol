@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +14,14 @@ import util.DBUtil;
 import util.OpenAIClient;
 
 public class BattleService {
-	private final OpenAIClient openAIClient = new OpenAIClient();
+	private final OpenAIClient openAIClient;
 	private static final int BASE_ATTACK = 10;
 	private static final double DRINK_PENALTY = 0.5;
 	private static final double NO_DRINK_BONUS = 2.0;
+
+	public BattleService() {
+		this.openAIClient = new OpenAIClient();
+	}
 
 	public BattleResultDTO processAttack(int userId, boolean didDrink, String comment)
 			throws SQLException, IOException {
@@ -32,9 +35,8 @@ public class BattleService {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
 
-			// 感情分析と攻撃力計算
-			double sentimentScore = openAIClient.analyzeSentiment(comment);
-			int attackPower = calculateAttackPower(didDrink, sentimentScore);
+			// 攻撃力計算
+			int attackPower = calculateAttackPower(didDrink);
 
 			// 攻撃を記録
 			recordAttack(conn, userId, didDrink, comment, attackPower);
@@ -50,15 +52,24 @@ public class BattleService {
 			conn.commit();
 
 			// 戦闘結果を返す
-			return new BattleResultDTO(attackPower, isDefeated, sentimentScore);
-		} catch (SQLException | IOException e) {
+			return new BattleResultDTO(attackPower, isDefeated, 0.5);
+
+		} catch (SQLException e) {
 			if (conn != null) {
-				conn.rollback();
+				try {
+					conn.rollback();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
 			}
 			throw e;
 		} finally {
 			if (conn != null) {
-				conn.close();
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -71,18 +82,14 @@ public class BattleService {
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, userId);
 			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next()) {
-					return rs.getInt(1) == 0;
-				}
+				return rs.next() && rs.getInt(1) == 0;
 			}
 		}
-		return true;
 	}
 
-	private int calculateAttackPower(boolean didDrink, double sentimentScore) {
+	private int calculateAttackPower(boolean didDrink) {
 		double multiplier = didDrink ? DRINK_PENALTY : NO_DRINK_BONUS;
-		double sentimentBonus = sentimentScore * 10;
-		return (int) Math.floor(BASE_ATTACK * multiplier + sentimentBonus);
+		return (int) Math.floor(BASE_ATTACK * multiplier);
 	}
 
 	private void recordAttack(Connection conn, int userId, boolean didDrink,
@@ -147,8 +154,8 @@ public class BattleService {
 				monster.setUpdatedAt(rs.getTimestamp("updated_at"));
 				return monster;
 			}
+			return null;
 		}
-		return null;
 	}
 
 	public List<BattleResultDTO> getBattleHistory(int userId) throws SQLException {
