@@ -23,3 +23,9 @@
    ```bash
    git clone https://github.com/rikatussei/RefrainFromDrinkingAlcohol.git
    cd RefrainFromDrinkingAlcohol
+   
+## 環境設定
+
+1. `src/main/resources/config.properties.sample` をコピーし、`src/main/resources/config.properties` にリネームします。
+2. `config.properties` 内の `openai.api.key` に、実際のAPIキーを設定します。
+3. 必要に応じて、その他の設定値（`model`, `max-tokens`, `temperature`）を更新します。
