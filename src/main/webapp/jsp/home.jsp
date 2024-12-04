@@ -33,18 +33,34 @@
 		<!-- ナビゲーションリンク -->
 		<div class="nav-links">
 			<a href="/RefrainFromDrinkingAlcohol/user/profile">プロフィール</a> <a
-				href="${pageContext.request.contextPath}/logout">ログアウト</a>
+				href="${pageContext.request.contextPath}/logout"
+				onclick="return confirmLogout();">ログアウト</a>
 		</div>
+
 		<!-- モンスター情報の表示 -->
 		<div class="monster-info">
 			<h2>今日のモンスター</h2>
 			<c:if test="${not empty monster}">
-				<div>
-					<img src="data:image/png;base64,${monster.imageBase64}"
-						alt="${monster.name}" />
-					<p>名前: ${monster.name}</p>
-					<p>HP: ${monster.hp}</p>
-					<p>生成日: ${monster.spawn_date}</p>
+				<div class="monster-details">
+					<div class="monster-image">
+						<img src="data:image/png;base64,${monster.imageBase64}"
+							alt="${monster.name}" />
+					</div>
+					<div class="monster-stats">
+						<p>名前: ${monster.name}</p>
+						<p>HP: ${monster.hp}/255</p>
+						<div class="hp-bar">
+							<div class="hp-value"
+								style="width: ${(monster.hp / 255.0) * 100}%"></div>
+						</div>
+						<c:if test="${not monster.defeated}">
+							<a href="${pageContext.request.contextPath}/battle"
+								class="battle-button">戦闘する！</a>
+						</c:if>
+						<c:if test="${monster.defeated}">
+							<p class="defeated-message">撃破済み！</p>
+						</c:if>
+					</div>
 				</div>
 			</c:if>
 			<c:if test="${empty monster}">
@@ -78,7 +94,23 @@
                     
                     // 今日の日付のみクリック可能
                     if (clickedDate.getTime() === today.getTime()) {
-                        window.location.href = '${pageContext.request.contextPath}/battle';
+                        // モンスター情報の取得と戦闘ページへの遷移
+                        fetch('${pageContext.request.contextPath}/api/daily-monster')
+                            .then(response => response.json())
+                            .then(monster => {
+                                if (monster && !monster.defeated) {
+                                    window.location.href = 
+                                        '${pageContext.request.contextPath}/battle';
+                                } else if (monster && monster.defeated) {
+                                    alert('本日のモンスターは既に倒されています');
+                                } else {
+                                    alert('本日のモンスターはまだ出現していません');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('モンスター情報の取得に失敗しました');
+                            });
                     }
                 },
                 
@@ -92,7 +124,10 @@
                                 title: monster.name,
                                 start: monster.date,
                                 allDay: true,
-                                color: monster.defeated ? 'gray' : 'red'
+                                color: monster.defeated ? 'gray' : 'red',
+                                extendedProps: {
+                                    defeated: monster.defeated
+                                }
                             })));
                         })
                         .catch(error => {
