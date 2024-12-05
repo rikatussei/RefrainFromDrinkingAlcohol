@@ -15,19 +15,26 @@ import javax.servlet.http.HttpSession;
 import dao.AppUsersDAO;
 import dto.AppUsersDTO;
 import dto.MonstersDTO;
-import service.MonsterService;
+import service.RandomMonsterService;
 import util.BreadcrumbItem;
 import validation.Validation;
 
-//他のファイルからアクセスするときの名称　※login.jspやnews.jspの「form action="～～"」と一致させる
+// URLパターンの指定
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private final RandomMonsterService monsterService;
 
-	//コントローラー実行時に動くdoGetメソッド
+	// コンストラクタ
+	public LoginController() {
+		this.monsterService = new RandomMonsterService();
+	}
+
+	// GETリクエスト処理（ログイン画面表示）
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		// パンくずリストの設定
 		List<BreadcrumbItem> breadcrumbs = new ArrayList<>();
 		breadcrumbs.add(new BreadcrumbItem("ホーム", "/RefrainFromDrinkingAlcohol/"));
@@ -39,62 +46,84 @@ public class LoginController extends HttpServlet {
 		rd.forward(request, response);
 	}
 
+	// POSTリクエスト処理（ログイン処理）
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// リクエストの文字エンコーディング設定
 		request.setCharacterEncoding("UTF-8");
 
+		// フォームからのパラメータ取得
 		String name = request.getParameter("name");
-		//パスワードをString型で取得
 		String passwordStr = request.getParameter("password");
-
 		String loginId = request.getParameter("loginId");
 
-		// Validationインスタンス生成
+		// バリデーションインスタンス生成
 		Validation validation = new Validation();
-		//未入力でないかを確認
+
+		// 入力値の検証
 		validation.isNull("ユーザー名", name);
-
 		validation.isNull("パスワード", passwordStr);
+		validation.length("ユーザー名", name, 2, 20); // 2文字以上20文字以内
 
-		//文字数を確認
-		validation.length("ユーザー名", name, 2, 20); // 2文字以上20文字以内に設定
-
-		//もしヴァリデーションインスタンスのerrorMsgにエラーメッセージがあるなら
+		// バリデーションエラーがある場合
 		if (validation.hasErrorMsg()) {
-			//リクエストスコープにエラーメッセージのリストを保存(名前は"errorMsg")
 			request.setAttribute("errorMsg", validation.getErrorMsg());
-
-			//login.jspにフォワード(※リダイレクトだとエラーメッセージは保持されない)
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login.jsp");
 			rd.forward(request, response);
-
-			//処理終了
 			return;
 		}
 
-		AppUsersDTO login = new AppUsersDTO(name, passwordStr, loginId);
-		AppUsersDAO dao = new AppUsersDAO();
-		login = dao.login(login);
+		try {
+			// ログイン情報のDTOを作成
+			AppUsersDTO login = new AppUsersDTO(name, passwordStr, loginId);
+			AppUsersDAO dao = new AppUsersDAO();
 
-		if (login != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("dto", login);
+			// ログイン認証
+			login = dao.login(login);
 
-			// モンスター生成処理の呼び出し
-			try {
-				MonsterService monsterService = new MonsterService();
-				MonstersDTO monster = monsterService.generateMonster();
-				session.setAttribute("monster", monster); // セッションにモンスターを保存
-			} catch (Exception e) {
-				e.printStackTrace();
-				session.setAttribute("errorMsg", "モンスター生成中にエラーが発生しました。");
+			// ログイン成功時の処理
+			if (login != null) {
+				// セッション作成とユーザー情報の保存
+				HttpSession session = request.getSession();
+				session.setAttribute("dto", login);
+
+				// モンスター生成処理
+				try {
+					if (monsterService.shouldGenerateMonster()) {
+						monsterService.generateRandomMonster();
+					}
+
+					// 生成されたモンスター情報の取得
+					MonstersDTO monster = monsterService.getCurrentMonster();
+					if (monster != null) {
+						session.setAttribute("monster", monster);
+					}
+				} catch (Exception e) {
+					// モンスター生成エラーはログに記録するが、ログイン処理は継続
+					e.printStackTrace();
+					System.err.println("モンスター生成中にエラーが発生しました: " + e.getMessage());
+				}
+
+				// ホーム画面へフォワード
+				RequestDispatcher rd = request.getRequestDispatcher("/jsp/home.jsp");
+				rd.forward(request, response);
+			} else {
+				// ログイン失敗時はログイン画面へリダイレクト
+				List<String> errorMsg = new ArrayList<>();
+				errorMsg.add("ログインIDまたはパスワードが間違っています");
+				request.setAttribute("errorMsg", errorMsg);
+				request.setAttribute("loginId", loginId);
+				request.setAttribute("name", name);
+				RequestDispatcher rd = request.getRequestDispatcher("/jsp/login.jsp");
+				rd.forward(request, response);
 			}
-
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/home.jsp");
-			rd.forward(request, response);
-		} else {
-			response.sendRedirect("/RefrainFromDrinkingAlcohol/jsp/login.jsp");
+		} catch (Exception e) {
+			// システムエラー時の処理
+			e.printStackTrace();
+			HttpSession session = request.getSession();
+			session.setAttribute("errorMsg", "システムエラーが発生しました");
+			response.sendRedirect("/RefrainFromDrinkingAlcohol/jsp/error.jsp");
 		}
 	}
-
 }
