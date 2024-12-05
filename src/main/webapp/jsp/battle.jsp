@@ -1,122 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>戦闘画面 - 飲酒を控え隊</title>
-<link href="${pageContext.request.contextPath}/css/battle.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/comments.css"
+<link href="/RefrainFromDrinkingAlcohol/css/common.css" rel="stylesheet">
+<link href="/RefrainFromDrinkingAlcohol/css/battle.css" rel="stylesheet">
+<!-- コメント機能用のCSS -->
+<link href="/RefrainFromDrinkingAlcohol/css/comments.css"
 	rel="stylesheet">
 </head>
 <body>
 	<div class="container">
-		<%@ include file="battle/monster_section.jsp"%>
-		<%@ include file="battle/attack_form.jsp"%>
-		<%@ include file="battle/comments_section.jsp"%>
-	</div>
-</body>
-<div class="container">
-	<!-- ヘッダー部分 -->
-	<div class="header">
-		<h1>戦闘画面</h1>
-		<div class="user-info">
-			<span>${dto.name}さん</span>
-		</div>
-	</div>
-
-	<!-- モンスター情報 -->
-	<div class="monster-card">
-		<h2>本日のモンスター</h2>
-		<div class="monster-content">
+		<!-- モンスター情報表示部分 -->
+		<div class="monster-display">
+			<h2>${monster.name}</h2>
 			<div class="monster-image">
 				<img src="data:image/png;base64,${monster.imageBase64}"
-					alt="${monster.name}" />
+					alt="${monster.name}">
 			</div>
-			<div class="monster-stats">
-				<h3>${monster.name}</h3>
-				<div class="hp-bar">
-					<div class="hp-value"
-						style="width: ${(monster.hp / 255.0) * 100}%;">HP:
-						${monster.hp}/255</div>
-				</div>
+			<div class="hp-bar">
+				<div class="hp-value" style="width: ${(monster.hp / 255.0) * 100}%">
+					HP: ${monster.hp}/255</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- 攻撃フォーム -->
-	<div class="battle-form">
-		<h2>飲酒日記を記入して攻撃</h2>
+		<!-- 攻撃フォーム -->
+		<div class="battle-form">
+			<form id="attackForm" action="/RefrainFromDrinkingAlcohol/battle"
+				method="post">
+				<div class="form-group">
+					<label for="drinking">本日の飲酒状況：</label> <select id="drinking"
+						name="drinking" required>
+						<option value="false">飲酒していない</option>
+						<option value="true">飲酒した</option>
+					</select>
+				</div>
 
-		<c:if test="${not empty errorMsg}">
-			<div class="error-message">
-				<ul>
-					<c:forEach var="msg" items="${errorMsg}">
-						<li>${msg}</li>
-					</c:forEach>
-				</ul>
-			</div>
-		</c:if>
+				<div class="form-group">
+					<label for="comment">感想や決意：</label>
+					<textarea id="comment" name="comment" required
+						placeholder="今日の状況や感想、明日への決意などを書いてください"></textarea>
+				</div>
 
-		<form action="/RefrainFromDrinkingAlcohol/battle" method="post">
-			<div class="form-group">
-				<label for="drinking">本日の飲酒状況：</label> <select id="drinking"
-					name="drinking" required>
-					<option value="false">飲酒していない</option>
-					<option value="true">飲酒した</option>
-				</select>
-			</div>
+				<button type="submit" class="attack-button">攻撃する！</button>
+			</form>
+		</div>
 
-			<div class="form-group">
-				<label for="comment">感想や決意：</label>
-				<textarea id="comment" name="comment" required
-					placeholder="今日の状況や感想、明日への決意などを書いてください"></textarea>
-			</div>
+		<!-- コメント表示・投稿エリア -->
+		<div class="comments-section">
+			<h3>応援コメント</h3>
 
-			<div class="button-group">
-				<button type="submit" class="attack-button"
-					${canAttack ? '' : 'disabled'}>${canAttack ? '攻撃する！' : '本日の攻撃済み'}
-				</button>
-			</div>
-		</form>
-	</div>
+			<!-- コメント投稿フォーム -->
+			<form id="commentForm" class="comment-form">
+				<input type="hidden" id="monsterId" value="${monster.id}">
+				<textarea id="commentText" placeholder="応援メッセージを書く" required></textarea>
+				<button type="submit">コメントする</button>
+			</form>
 
-	<!-- 応援コメント一覧 -->
-	<div class="comments-section">
-		<h2>応援コメント</h2>
-		<div class="comments-container">
-			<c:forEach items="${comments}" var="comment">
-				<div
-					class="comment-card ${comment.commentType == 'AI' ? 'ai-comment' : 'user-comment'}">
-					<div class="comment-header">
-						<span class="commenter-name"> ${comment.commentType == 'AI' ? 'AI' : comment.userName}
-						</span> <span class="comment-time"> <fmt:formatDate
-								value="${comment.createdAt}" pattern="yyyy/MM/dd HH:mm" />
-						</span>
+			<!-- コメント一覧 -->
+			<div id="commentsList" class="comments-list">
+				<c:forEach items="${comments}" var="comment">
+					<div
+						class="comment-card ${comment.userId eq sessionScope.dto.id ? 'own-comment' : ''}">
+						<div class="comment-header">
+							<span class="commenter-name">${comment.userName}</span> <span
+								class="comment-time"> <fmt:formatDate
+									value="${comment.createdAt}" pattern="yyyy/MM/dd HH:mm" />
+							</span>
+						</div>
+						<div class="comment-content">${comment.text}</div>
+						<c:if test="${comment.userId eq sessionScope.dto.id}">
+							<button onclick="deleteComment(${comment.id})"
+								class="delete-comment">削除</button>
+						</c:if>
 					</div>
-					<div class="comment-text">${comment.text}</div>
-				</div>
-			</c:forEach>
-		</div>
-
-		<!-- コメント投稿フォーム -->
-		<form action="/RefrainFromDrinkingAlcohol/battle/comment"
-			method="post" class="comment-form">
-			<div class="form-group">
-				<textarea name="commentText" required placeholder="応援コメントを書く"></textarea>
+				</c:forEach>
 			</div>
-			<button type="submit" class="comment-button">コメントする</button>
-		</form>
+		</div>
 	</div>
 
-	<!-- ナビゲーションリンク -->
-	<div class="nav-links">
-		<a href="/RefrainFromDrinkingAlcohol/home" class="btn-secondary">ホームに戻る</a>
-		<a href="/RefrainFromDrinkingAlcohol/user/profile"
-			class="btn-secondary">プロフィール</a>
-	</div>
-</div>
+	<!-- コメント機能用JavaScript -->
+	<script src="/RefrainFromDrinkingAlcohol/js/comments.js"></script>
 </body>
 </html>
