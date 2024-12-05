@@ -1,4 +1,4 @@
-package service;
+package controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServlet;
 import dto.BattleResultDTO;
 import util.DBUtil;
 
-public class BattleService extends HttpServlet {
-   private static final long serialVersionUID = 1L;
-   private static final int BASE_ATTACK = 10;
-   private static final double DRINKING_PENALTY = 0.5;
-   private static final double NO_DRINKING_BONUS = 1.5;
+public class BattleController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static final int BASE_ATTACK = 10;
+	private static final double DRINKING_PENALTY = 0.5;
+	private static final double NO_DRINKING_BONUS = 1.5;
 
 	public BattleResultDTO processAttack(int userId, boolean didDrink, String comment)
 			throws SQLException {
