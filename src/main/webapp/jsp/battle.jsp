@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>戦闘画面 - 飲酒を控え隊</title>
+<!-- CSRFトークン設定 -->
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <!-- CSS読み込み -->
 <link href="/RefrainFromDrinkingAlcohol/css/common.css" rel="stylesheet">
 <link href="/RefrainFromDrinkingAlcohol/css/battle.css" rel="stylesheet">
@@ -117,6 +120,7 @@
 	</div>
 
 	<!-- JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="/RefrainFromDrinkingAlcohol/js/comments.js"></script>
 	<script>
         // 戦闘フォーム送信前の確認
@@ -126,7 +130,7 @@
             }
         });
 
-        // エラーメッセージ表示（必要な場合）
+        // エラーメッセージ表示
         <c:if test="${not empty errorMsg}">
             alert('${errorMsg}');
         </c:if>

@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	/**
+	 * CSRFトークンの取得
+	 * @returns {string} CSRFトークン
+	 */
+	function getCsrfToken() {
+		const tokenMeta = document.querySelector('meta[name="_csrf"]');
+		return tokenMeta ? tokenMeta.content : '';
+	}
+
+	/**
 	 * コメントフォームの送信処理
 	 */
 	commentForm.addEventListener('submit', async function(e) {
@@ -28,15 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		try {
-			// CSRFトークンの取得（必要な場合）
-			const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-
 			// APIリクエストの送信
 			const response = await fetch('/RefrainFromDrinkingAlcohol/api/comments', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-CSRF-TOKEN': csrfToken || '',
+					'X-CSRF-TOKEN': getCsrfToken()
 				},
 				body: JSON.stringify({
 					monsterId: monsterId,
@@ -74,13 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		try {
-			// CSRFトークンの取得（必要な場合）
-			const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-
 			const response = await fetch(`/RefrainFromDrinkingAlcohol/api/comments/${commentId}`, {
 				method: 'DELETE',
 				headers: {
-					'X-CSRF-TOKEN': csrfToken || ''
+					'X-CSRF-TOKEN': getCsrfToken()
 				}
 			});
 
