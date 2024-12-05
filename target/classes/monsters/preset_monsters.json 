@@ -1,0 +1,16 @@
+// src/main/resources/monsters/preset_monsters.json
+{
+  "monsters": [
+    {
+      "name": "さけボトルくん",
+      "imagePath": "monster1.png",
+      "baseHp": 120
+    },
+    {
+      "name": "おちょこちゃん",
+      "imagePath": "monster2.png",  
+      "baseHp": 150
+    },
+    // ... 他のモンスター定義
+  ]
+}

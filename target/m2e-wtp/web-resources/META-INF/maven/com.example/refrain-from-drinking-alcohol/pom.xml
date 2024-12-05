@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- MavenのPOMファイルはプロジェクトの設定を記述します -->
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- プロジェクトの基本情報 -->
+	<groupId>com.example</groupId>
+	<artifactId>refrain-from-drinking-alcohol</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging> <!-- Webアプリケーションとしてパッケージング -->
+
+	<!-- プロジェクト全体のプロパティ設定 -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!--
+		ソースファイルのエンコーディングをUTF-8に設定 -->
+		<maven.compiler.source>11</maven.compiler.source> <!-- 使用するJavaのバージョン -->
+		<maven.compiler.target>11</maven.compiler.target> <!-- コンパイル後のJavaのバージョン -->
+	</properties>
+
+	<!-- プロジェクトに必要な依存関係の定義 -->
+	<dependencies>
+		<!-- Servlet API: JavaのWebアプリケーションで必要 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope> <!-- サーバー上で提供されるため、コンパイル時のみ使用 -->
+		</dependency>
+
+		<!-- JSTL: JSPでのタグライブラリを使用するため -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- PostgreSQL JDBC Driver: データベース接続用 -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.6.0</version>
+		</dependency>
+
+		<!-- JSON Library: JSONデータ操作用 -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20231013</version>
+		</dependency>
+
+		<!-- SLF4J API: ロギングのインターフェース -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.9</version>
+		</dependency>
+
+		<!-- Logback: SLF4Jの実装ライブラリ -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.4.11</version>
+		</dependency>
+
+		<!-- Apache HttpClient: HTTP通信を行うためのライブラリ -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.14</version>
+		</dependency>
+
+		<!-- Jackson: JSONのシリアライズ/デシリアライズ用 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.2</version>
+		</dependency>
+
+		<!-- JUnit: テスト用ライブラリ -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.10.0</version>
+			<scope>test</scope> <!-- テスト時にのみ使用 -->
+		</dependency>
+	</dependencies>
+
+	<!-- プロジェクトのビルド設定 -->
+	<build>
+		<!-- 出力するWARファイルの名前 -->
+		<finalName>RefrainFromDrinkingAlcohol</finalName>
+
+		<plugins>
+			<!-- WARプラグイン: Webアプリケーションとしてパッケージング -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
+			</plugin>
+
+			<!-- コンパイラプラグイン: Javaのバージョンを指定 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+
+			<!-- Tomcat7プラグイン（任意）: アプリケーションのデプロイ用 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://localhost:8080/manager/text</url>
+					<server>TomcatServer</server>
+					<path>/RefrainFromDrinkingAlcohol</path>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
