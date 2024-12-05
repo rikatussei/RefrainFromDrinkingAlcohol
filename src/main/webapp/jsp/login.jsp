@@ -16,7 +16,7 @@
 			<h1>ログイン画面</h1>
 
 			<%-- エラーメッセージ表示 --%>
-			<c:if test="${not empty errorMsg}">
+			<c:if test="${errorMsg != null && not empty errorMsg}">
 				<div class="error-message">
 					<ul>
 						<c:forEach var="msg" items="${errorMsg}">
