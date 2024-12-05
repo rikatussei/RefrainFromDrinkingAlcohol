@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import dto.AppUsersDTO;
 
 public class AppUsersDAO {
-	//DBの接続情報 ※DB_URL部分のポート番号(5433)とデータベース名(0816jdbc)は必要に応じて書き換える
-	private static final String DB_URL = "jdbc:postgresql://localhost:5433/0816jdbc";
+	//DBの接続情報 ※DB_URL部分のポート番号(5432)とデータベース名(0816jdbc)は必要に応じて書き換える
+	private static final String DB_URL = "jdbc:postgresql://localhost:5432/0816jdbc";
 	private static final String DB_USER = "postgres";
 	private static final String DB_PASS = "password";
 
