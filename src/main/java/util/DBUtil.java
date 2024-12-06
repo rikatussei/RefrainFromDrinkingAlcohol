@@ -1,18 +1,20 @@
+// src/main/java/util/DBUtil.java
 package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class DBUtil {
-	private static final String DRIVER = "org.postgresql.Driver";
-	private static final String URL = "jdbc:postgresql://localhost:5432/0816jdbc";
-	private static final String USER = "postgres";
-	private static final String PASSWORD = "password";
+	private static final ResourceBundle rb = ResourceBundle.getBundle("database");
+	private static final String URL = rb.getString("db.url");
+	private static final String USER = rb.getString("db.user");
+	private static final String PASSWORD = rb.getString("db.password");
 
 	static {
 		try {
-			Class.forName(DRIVER);
+			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("PostgreSQLドライバの読み込みに失敗しました", e);
 		}
