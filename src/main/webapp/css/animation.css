@@ -1,0 +1,70 @@
+/* src/main/webapp/css/animation.css */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.fade-in {
+	animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-in {
+	animation: slideIn 0.5s ease-in-out;
+}
+
+.monster-appear {
+	animation: monsterAppear 0.8s ease-out;
+}
+
+@keyframes monsterAppear {
+	0% {
+		transform: scale(0.5);
+		opacity: 0;
+	}
+
+	50% {
+		transform: scale(1.1);
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.damage-effect {
+	animation: damageShake 0.5s ease-in-out;
+}
+
+@keyframes damageShake {
+
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	25% {
+		transform: translateX(-10px);
+	}
+
+	75% {
+		transform: translateX(10px);
+	}
+}
