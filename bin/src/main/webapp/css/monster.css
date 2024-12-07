@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+.monsters-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 2rem;
+	padding: 2rem;
+}
+
+.monster-card {
+	background: white;
+	border-radius: 15px;
+	padding: 1.5rem;
+	text-align: center;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+}
+
+.monster-face {
+	width: 120px;
+	height: 120px;
+	margin: 0 auto;
+	position: relative;
+	border-radius: 60%;
+}
+
+.monster-eyes {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 40px;
+}
+
+.eye {
+	width: 20px;
+	height: 20px;
+	background: white;
+	border-radius: 50%;
+	position: relative;
+}
+
+.eye::after {
+	content: '';
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: black;
+	border-radius: 50%;
+	top: 5px;
+	left: 5px;
+}
+
+.monster-mouth {
+	width: 40px;
+	height: 20px;
+	border-radius: 0 0 20px 20px;
+	background: white;
+	margin: 10px auto;
+	position: relative;
+	overflow: hidden;
+}
+
+.monster-info {
+	margin-top: 1rem;
+}
+
+.monster-info h3 {
+	font-size: 1.2rem;
+	margin-bottom: 0.5rem;
+	color: #333;
+}
+
+.monster-info p {
+	font-size: 0.9rem;
+	color: #666;
+	margin-bottom: 1rem;
+}
+
+.monster-stats {
+	display: flex;
+	justify-content: space-around;
+	font-size: 0.8rem;
+	color: #888;
+}
+
+@keyframes bounce {
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+.monster-card:hover .monster-face {
+	animation: bounce 1s infinite;
+}

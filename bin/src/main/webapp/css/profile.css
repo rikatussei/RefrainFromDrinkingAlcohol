@@ -1,0 +1,233 @@
+@charset "UTF-8";
+
+/* プロフィール情報エリア */
+.profile-info {
+	margin-bottom: 30px;
+}
+
+/* プロファイル画面のメインコンテナ */
+.profile-container {
+	width: 90%;
+	max-width: 1200px;
+	margin: 20px auto;
+	padding: 20px;
+}
+
+/* ヘッダー部分 */
+.header {
+	margin-bottom: 30px;
+}
+
+.user-info {
+	background: #f8f9fa;
+	padding: 15px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+/* プロフィールカード */
+.profile-card {
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin-bottom: 30px;
+}
+
+.profile-details {
+	margin-bottom: 20px;
+}
+
+.info-row {
+	display: flex;
+	margin-bottom: 12px;
+	padding: 8px 0;
+	border-bottom: 1px solid #eee;
+}
+
+.info-row:last-child {
+	border-bottom: none;
+}
+
+.info-row .label {
+	width: 150px;
+	color: #666;
+	font-weight: bold;
+}
+
+.info-row .value {
+	flex: 1;
+}
+
+/* 応援メッセージエリア */
+.support-message {
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin-bottom: 30px;
+}
+
+.message-content {
+	display: flex;
+	align-items: flex-start;
+	padding: 15px;
+	background: #f8f9fa;
+	border-radius: 8px;
+	margin-top: 15px;
+}
+
+.ai-icon {
+	font-size: 24px;
+	margin-right: 15px;
+}
+
+.message-text {
+	flex: 1;
+	line-height: 1.6;
+}
+
+.message-time {
+	font-size: 0.8em;
+	color: #666;
+	margin-top: 8px;
+}
+
+/* 戦闘履歴カレンダー */
+.battle-history {
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin-bottom: 30px;
+}
+
+#calendar {
+	margin-top: 20px;
+}
+
+/* 直近の戦闘記録 */
+.recent-battles {
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin-bottom: 30px;
+}
+
+.battle-record {
+	padding: 15px;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 10px;
+}
+
+.battle-record:hover {
+	background: #f8f9fa;
+}
+
+.battle-record.drinking {
+	border-left: 4px solid #ff4444;
+}
+
+.battle-record.sober {
+	border-left: 4px solid #00C851;
+}
+
+.battle-date {
+	color: #666;
+	font-size: 0.9em;
+	margin-bottom: 8px;
+}
+
+.battle-details {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.monster-name {
+	font-weight: bold;
+}
+
+.attack-power {
+	color: #666;
+}
+
+.status.defeated {
+	color: #00C851;
+	font-weight: bold;
+}
+
+.battle-comment {
+	font-style: italic;
+	color: #666;
+	font-size: 0.9em;
+}
+
+/* ボタン */
+.btn-primary,
+.btn-secondary {
+	display: inline-block;
+	padding: 10px 20px;
+	border-radius: 4px;
+	text-decoration: none;
+	margin-right: 10px;
+	transition: background-color 0.3s;
+}
+
+.btn-primary {
+	background: #4CAF50;
+	color: white;
+}
+
+.btn-primary:hover {
+	background: #45a049;
+}
+
+.btn-secondary {
+	background: #666;
+	color: white;
+}
+
+.btn-secondary:hover {
+	background: #555;
+}
+
+/* カレンダーイベントスタイル */
+.calendar-event {
+	padding: 2px 4px;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.calendar-event.victory {
+	background-color: #00C851;
+	color: white;
+}
+
+.calendar-event.defeat {
+	background-color: #ff4444;
+	color: white;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+	.info-row {
+		flex-direction: column;
+	}
+
+	.info-row .label {
+		width: 100%;
+		margin-bottom: 5px;
+	}
+
+	.battle-details {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.attack-power {
+		margin: 5px 0;
+	}
+}

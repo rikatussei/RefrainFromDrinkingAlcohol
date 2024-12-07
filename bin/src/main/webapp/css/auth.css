@@ -1,0 +1,74 @@
+@charset "UTF-8";
+/* 認証関連ページ共通スタイル */
+.auth-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* フォームスタイル */
+.auth-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.auth-form table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.auth-form th {
+    text-align: left;
+    padding: 10px;
+    width: 30%;
+}
+
+.auth-form td {
+    padding: 10px;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* ボタンスタイル */
+.auth-button {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.auth-button:hover {
+    background: #45a049;
+}
+
+/* リンクスタイル */
+.auth-link {
+    display: block;
+    margin-top: 20px;
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+/* 完了メッセージスタイル */
+.completion-message {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}

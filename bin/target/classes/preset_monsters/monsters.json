@@ -1,0 +1,40 @@
+// src/main/resources/preset_monsters/monsters.json
+{
+	"monsters": [
+		{
+			"id": 1,
+			"name": "日本酒ちゃん",
+			"imagePath": "sake_bottle.png",
+			"baseHp": 120,
+			"description": "伝統的な日本酒ボトルの姿をした可愛らしいモンスター。飲酒を控えることで元気になっていく。"
+		},
+		{
+			"id": 2,
+			"name": "おちょこくん",
+			"imagePath": "sake_cup.png",
+			"baseHp": 100,
+			"description": "日本酒を注ぐお猪口の形をしたモンスター。禁酒の決意を応援してくれる。"
+		},
+		{
+			"id": 3,
+			"name": "焼酎くん",
+			"imagePath": "shochu.png",
+			"baseHp": 180,
+			"description": "焼酎瓶の形をしたモンスター。強い意志で禁酒を支援。"
+		},
+		{
+			"id": 4,
+			"name": "ビアたん",
+			"imagePath": "beer.png",
+			"baseHp": 150,
+			"description": "ビールジョッキの姿のモンスター。泡は禁酒の強さを表す。"
+		},
+		{
+			"id": 5,
+			"name": "ワインドロップ",
+			"imagePath": "wine.png",
+			"baseHp": 130,
+			"description": "ワインの雫の形をしたモンスター。禁酒への情熱を応援。"
+		}
+	]
+}

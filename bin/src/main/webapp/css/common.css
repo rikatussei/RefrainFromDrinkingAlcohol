@@ -1,0 +1,54 @@
+@charset "UTF-8";
+/* 共通のコンテナスタイル */
+.container {
+    width: 90%;
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* 共通のカードスタイル */
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* 共通のナビゲーションリンク */
+.nav-links {
+    margin: 20px 0;
+}
+
+.nav-links a {
+    margin-right: 10px;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    background: #4CAF50;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #45a049;
+}
+
+/* 共通のフォーム要素 */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

@@ -1,0 +1,10 @@
+# OpenAI API設定
+openai.api.key=your-api-key-here
+
+# 使用するモデル設定
+openai.model=gpt-4o-mini
+openai.dalle-model=dall-e-2
+
+# その他の設定
+openai.max-tokens=100
+openai.temperature=0.7
